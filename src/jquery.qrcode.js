@@ -1,5 +1,20 @@
 (function( $ ){
 	$.fn.qrcode = function(options) {
+		
+		// if options is null
+		if ( options === null) {
+			var _title = null;
+			if ($('head title').length > 0) {
+				_title = $('head title').text();
+			}
+			
+			options = {
+				title: _title,
+				text: location.href
+			};
+				
+		}
+		
 		// if options is string, 
 		if( typeof options === 'string' ){
 			options	= { text: options };	
