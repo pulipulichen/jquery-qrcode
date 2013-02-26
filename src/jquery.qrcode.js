@@ -2,12 +2,13 @@
 	$.fn.qrcode = function(options) {
 		// if options is string, 
 		if( typeof options === 'string' ){
-			options	= { text: options };
+			options	= { text: options };	
 		}
 
 		// set default values
 		// typeNumber < 1 for automatic calculation
 		options	= $.extend( {}, {
+			title		: null,
 			render		: "canvas",
 			width		: 256,
 			height		: 256,
@@ -16,6 +17,19 @@
                         background      : "#ffffff",
                         foreground      : "#000000"
 		}, options);
+		
+		if ()
+		var _title = options.title;
+		var _text = options.text;
+		if (_title == null && _text.substr(0, 3) == '<a ') {
+			var _a = $(_text);
+			
+			_title = _text.text();
+			_text = _text.attr('href');
+			
+			options.title = _title;
+			options.text = _text;
+		}
 
 		var createCanvas	= function(){
 			// create the qrcode itself
@@ -76,6 +90,13 @@
 						.appendTo($row);
 				}	
 			}
+			
+			if (options.title != null && options.title != '') {
+				var $row = $('<tr><td>'+options.title+'</td></tr>')
+					.appendTo($table);
+			}
+			
+			
 			// return just built canvas
 			return $table;
 		}
